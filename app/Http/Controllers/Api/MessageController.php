@@ -24,7 +24,7 @@ class MessageController extends Controller
         $id_user = Auth::user()->id;
         $message = Message::where('id_user_to','=',$id_user)
                                 ->with(['user' => function($query) {
-                                    $query->select('id', 'name');
+                                    $query->select('id', 'name', 'avatar');
                                 }])
                                 ->get();
         if($message){
@@ -52,6 +52,7 @@ class MessageController extends Controller
             $message->id_user_to = $request->input('id_user_to');
             $message->id_type_message = $request->input('type_message');
             $message->status = 'FALSE';
+            $message->accepted = 0;
             $message->body = $request->input('body');
             if($message->save()){
                 return response()->json(['Success'=>'Message created'],200);
@@ -71,6 +72,21 @@ class MessageController extends Controller
             return response()->json(['success'=>$message],200);
         }else{
             return response()->json(['error'],404);
+        }
+    }
+
+
+    public function deleteMessage($id)
+    {
+        $message = Message::find($id);
+        if($message->status != 'TRUE'){
+            return response()->json(['error'=>'Message has not been read'],404);
+        }else{
+            if(Message::where('id','=',$id)->delete()){
+                return response()->json(['success'=>'Message removed'],200);
+            }else{
+                return response()->json(['error'=>'Error removing message'],404);
+            }
         }
     }
 

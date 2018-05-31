@@ -12,7 +12,7 @@ class Message extends Model
     use Notifiable;
 
     protected $fillable = [
-        'id_user_from','id_user_to','id_type_message','body'
+        'id_user_from','id_user_to','id_type_message','body', 'accepted'
     ];
     
     protected $table = 'messages';

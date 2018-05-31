@@ -15,5 +15,10 @@ class Newsfeed extends Model
     protected $table = 'newsfeeds';
     public $primaryKey = 'id';
     public $timestamps = true;
+
+    public function user()
+    {
+        return $this->belongsTo('App\User','id_user');
+    }
     
 }

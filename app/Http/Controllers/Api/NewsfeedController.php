@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Newsfeed;
+use App\User;
 
 class NewsfeedController extends Controller
 {
@@ -15,7 +16,8 @@ class NewsfeedController extends Controller
      */
     public function index()
     {
-        return Newsfeed::all();
+        return Newsfeed::with(['user' => function($query) { $query->select('id', 'name', 'avatar');}])
+                            ->get();;
     }
 
     
