@@ -35,6 +35,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('messagestatus', 'Api\MessageController@changeStatus');
     Route::post('createmesg', 'Api\MessageController@createMessage');
     Route::get('deletemessage/{id}', 'Api\MessageController@deleteMessage');
+
+    Route::get('driverpst/{id}', 'Api\RouteController@getDriverPosition');
+    
 });
 
 
