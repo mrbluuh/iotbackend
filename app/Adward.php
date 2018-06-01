@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 
-class GroupGrade extends Model
+class Adward extends Model
 {
     use Notifiable;
 
     protected $fillable = [
-        'name',
+        'id_type_adward','name','icon'
     ];
     
-    protected $table = 'group_grades';
+    protected $table = 'adwards';
     public $primaryKey = 'id';
     public $timestamps = true;
-
+    
 }

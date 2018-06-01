@@ -3,18 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 
-class GroupGrade extends Model
+class TypeAdward extends Model
 {
-    use Notifiable;
 
     protected $fillable = [
-        'name',
+        'name', 
     ];
     
-    protected $table = 'group_grades';
+    protected $table = 'type_adwards';
     public $primaryKey = 'id';
     public $timestamps = true;
 

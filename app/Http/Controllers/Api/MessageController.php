@@ -34,6 +34,22 @@ class MessageController extends Controller
         }
     }
 
+    public function getSentMessages(){
+
+        $id_user = Auth::user()->id;
+        $message = Message::where('id_user_from','=',$id_user)
+                                ->with(['userto' => function($query) {
+                                    $query->select('id', 'name', 'avatar');
+                                }])
+                                ->get();
+        if($message){
+            return response()->json(['status' => 'success','messages'=>$message], $this->successStatus);
+        }else{
+            return response()->json([], $this->errorStatus);
+        }
+
+    }
+
 
     public function createMessage(Request $request)
     {
