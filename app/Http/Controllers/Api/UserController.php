@@ -20,42 +20,12 @@ class UserController extends Controller
     public $successStatus = 200;
     public $errorStatus = 404;
 
-    public function getAutoAnswers(){
-        $userid = Auth::user()->id;
-        $answer = AutoAnswer::find($userid);
-        return response()->json(['success' => $answer], $this->successStatus);
-    }
-
 
     public function getUser(){
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
     }
 
-
-    public function getSubject(){
-        $id = Auth::user()->id;
-        $subjects =  Subject::where('id_user','=',$id)->with(['group_grade' => function($query) { $query->select('id', 'name');}])->get();
-        if(count($subjects) > 0){
-            return response()->json(['status' => 'success','subjects'=>$subjects], $this->successStatus);
-        }else{
-            return response()->json([], $this->errorStatus);
-        }
-    }
-
-    public function getStudentbyGroup($id){
-        return Student::where('group_id','=',$id)->get();
-    }
-
-    public function getStudentbyUser(){
-        $id = Auth::user()->id;
-        return Student::where('id_user','=',$id)->with(['group' => function($query) { $query->select('id', 'name');}])->get();
-
-    }
-
-    public function getStudentAward($id){
-        return StudentAdward::where('id_student','=',$id)->with(['adward' => function($query) { $query->select('id', 'name', 'icon');}])->get();   
-    }
 
    
     public function getAdwards(){
