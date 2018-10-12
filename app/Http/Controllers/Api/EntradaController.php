@@ -16,7 +16,7 @@ class EntradaController extends Controller
      */
     public function getEntradas()
     {
-        return Entrada::all();
+        return Entrada::latest()->first();
     }
 
     
